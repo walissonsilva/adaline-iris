@@ -103,9 +103,9 @@ X_test = np.asarray(X_test)
 d = np.asarray(d)
 y = np.asarray(y)
 
-### Scatter plot iris data
-### The red dots ----> Setosa (-1)
-### The blue dots ----> Versicolor (1)
+### Plotando os dados de treinamento
+### Pontos vermelhos ----> Setosa (-1)
+### Pontos azuis ----> Versicolor (1)
 cm_bright = ListedColormap(['#FF0000', '#0000FF'])
 plt.figure(figsize=(7,5))
 plt.scatter(X_train[:,0], X_train[:,1], c=d, cmap=cm_bright)

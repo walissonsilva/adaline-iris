@@ -19,7 +19,7 @@ class Adaline(object):
         self.N = d.size
 
         # Iniciar pesos sinápticos
-        np.random.seed(16)
+        #np.random.seed(16)
         self.Wini = np.random.uniform(-1, 1, X.shape[1] + 1).reshape(1, -1)
         W = self.Wini
         print W
@@ -57,15 +57,21 @@ class Adaline(object):
                 break
         self.W = W
 
-    def predict(self, X):
+    def predict(self, X, saida):
+        print X.shape[0]
+        predicts = np.zeros(X.shape[0])
+
+        print 'Resultado |', 'Valor |', 'Valor esperado'
+        print '------------------------------------'
+
         for n in xrange(X.shape[0]):
             xt = np.array([-1, X[n, 0], X[n, 1]]).reshape(-1, 1)
             y = np.dot(self.W, xt)[0][0] # Combinador linear
 
             if (y < 0):
-                print "setosa", y
+                print "setosa |", y, '|', saida[n]
             else:
-                print "vesicolor", y
+                print "vesicolor |", y, '|', saida[n]
 
         
 
@@ -112,7 +118,7 @@ plt.scatter(X_train[:,0], X_train[:,1], c=d, cmap=cm_bright)
 plt.scatter(None, None, color = 'r', label='Setosa')
 plt.scatter(None, None, color = 'b', label='Versicolor')
 plt.legend()
-plt.title('Visualize the data')
+plt.title('Dados de Treinamento')
 plt.xlabel('Petal length')
 plt.ylabel('Petal width')
 plt.show()
@@ -122,9 +128,46 @@ plt.show()
 adaline = Adaline()
 adaline.train(X_train, d)
 
-adaline.predict(X_test)
+adaline.predict(X_test, y)
+
+"""
+######### Plotando os limites de decisão (depois do treinamento) #############  
+
+# Set x_min, x_max, y_min, y_max
+x_min, x_max = X_test[:, 0].min() - 2., X_test[:, 0].max() + .5
+y_min, y_max = X_test[:, 0].min() - 2, X_test[:, 0].max()
+
+# Step size in the mesh
+h = 0.001
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                     np.arange(y_min, y_max, h))
+
+Z = adaline.predict(np.c_[xx.ravel(), yy.ravel()])
+
+# Crete color for training point and test point
+cm = plt.cm.RdBu
+cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+
+# Put the result into a color plot
+Z = Z.reshape(xx.shape)
+
+# Plot the decision boundary and scatter labels
+plt.figure(figsize=(7,5))
+plt.contourf(xx, yy, Z, cmap=cm, alpha=.9)
+plt.scatter(X_test[:,0], X_test[:,1], c=y, cmap=cm_bright)
+plt.scatter(None, None, color = 'r', label='Setosa')
+plt.scatter(None, None, color = 'b', label='Versicolor')
+plt.legend()
+plt.xlim([x_min + 1.0, x_max])
+plt.ylim([y_min + 0.5, y_max - 3.0])
+plt.title('The Decision Boundary of Adaline after training')
+plt.xlabel('Petal length')
+plt.ylabel('Petal width')
+plt.show()
+
+R = adaline.predict(X_test)
 
 #print iris_datasets.feature_names
 #print iris_datasets.target_names
 #print iris_datasets.target
-#print iris_datasets
+#print iris_datasets"""

@@ -12,10 +12,16 @@
 
 - Implementar o Adaline na linguagem Python.
 - Importar o conjunto de dados da _iris_ (do Python) para treinar o algoritmo do Adaline, previamente implementado. O treinamento deve ser feito com apenas 40 dados de apenas dois tipos de _iris_ e com apenas duas de suas características (a largura e o comprimento da pétala).
-- Por fim, testar o Adaline com os 10 dados restantes de cada um dos três tipo de _iris_.
+- Por fim, testar o Adaline com os 10 dados restantes os dois tipo de _iris_.
 
 ## Requisitos
 
 - Ter o Python, versão 2.7, instalado.
 - Instalar as bibliotecas `numpy`, `matplotlib`, `scipy` e `sklearn`. Para isso, digite os seguintes comandos no _cmd_ ou no _Terminal_:
     > `pip install numpy matplolib scipy sklearn`
+
+## Resultados
+
+![Dados](imagens/dados_train.png)
+![Separação](imagens/adaline-classificador.png)
+![Teste](imagens/resultado.png)
